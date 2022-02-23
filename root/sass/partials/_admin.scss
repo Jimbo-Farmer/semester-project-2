@@ -1,0 +1,18 @@
+.admin-links {
+    text-align: center;
+    a, button {
+        width: 250px;
+        display: block;
+        margin: 24px auto;
+        color: black;
+        background-color: white;
+        padding: 8px 24px;
+        border: 1px solid $colour-pinkshock;
+        box-sizing: content-box;
+        font-size: 16px;
+        &:hover {
+            filter: drop-shadow(2px 2px 2px $colour-graphite);
+            cursor: pointer;
+        }
+    }
+}

@@ -1,0 +1,109 @@
+form {
+    width: 90%;
+    margin: 10px auto;
+    text-align: center;
+    h2{
+        font-size: 16px;
+    }
+    .form__block {
+        width: 60%;
+        max-width: 400px;
+        text-align: left;
+        margin: 15px auto;
+    }
+    label {
+        color: white;
+        display: block;
+        font-family: $font-header;
+        text-transform: uppercase;
+    }
+    input {
+        width: 100%;
+        padding: 4px;
+    }
+    button {
+        @extend .product__cta;
+        font-size: 16px;
+        font-family: $font-header;
+    }
+}
+
+#edit-form {
+    max-width: 600px;
+    background-color: $colour-graphite;
+    padding: 20px;
+    input {
+        width: 80%;
+    }
+    textarea {
+        width: 80%;
+    }
+    img {
+        max-width: 300px;
+        margin-top: 20px;
+    }
+    .image-replace {
+        margin-top: 5px;
+    }
+    label {
+        margin-top: 20px;
+    }
+    button {
+        margin-top: 30px;
+        display: block;
+        width: 300px;
+    }
+
+    .product__edit {
+        color: white;
+        background-color: $colour-coolblue;
+        &:hover {
+            color: black;
+            background-color: white;
+        }
+    }
+    .product__delete {
+        background-color: $colour-pinkshock;
+        &:hover {
+            background-color: white;
+        }
+    }
+    #featured {
+        height: 18px;
+    }
+}
+
+.product__image-form.open {
+    position: fixed;
+    height: 100vh;
+    width: 100%;
+    left: 0;
+    top: 0;
+    background-color: rgba(0,0,0,0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    form {
+        position: relative;
+        width: 600px;
+        background-color: $colour-graphite;
+        padding: 20px;
+        .close-button {
+            position: absolute;
+            top: 5px;
+            right: 15px;
+            padding: 2px;
+        }
+        #image {
+            color: white;
+        }
+        input {
+            width: 500px;
+            
+        }
+        label {
+            margin-top: 20px;
+        }
+    }
+}
+

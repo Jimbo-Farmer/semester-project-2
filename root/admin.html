@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Kicks: urban footwear for movement, style and comfort">
+    <title>Kicks | Login</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <header>
+        <a href="index.html" class="brand">
+                <img class="brand__logo" src="./images/logo1.svg" alt="The word 'Kicks' in all caps, links to home">
+        </a>
+        <nav>
+            <a class="nav__link products__link" href="products.html">Products</a>
+            <a class="nav__link cart__link" href="cart.html">Cart</a>
+            <a class="nav__link admin__link nav__link--active" href="admin.html">Admin</a>
+            <div id="hamburger" class="">
+                <div class="burger__layer burger__top"></div>
+                <div class="burger__layer burger__middle1"></div>
+                <div class="burger__layer burger__middle2"></div>
+                <div class="burger__layer burger__bottom"></div>
+            </div>
+            <a href="index.html">
+                <div id="home-link" class="">
+                    <div class="home__roof"></div>
+                    <div class="home__building"></div>
+                    <div class="home__door"></div>
+                </div>
+            </a>
+            
+        </nav>
+    </header>
+    <main>
+        <div class="message-container"></div>
+        <h1>Administration</h1>
+        <form class="login">
+            <h2>To create, edit and delete kicks products please log in</h2>
+            <div class="form__block">
+                <label for="username">Username</label>
+                <div class="form__username-error form__error hidden">Please enter a valid username</div>
+                <input type="text" name="username" id="username">
+            </div>
+            <div class="form__block">
+                <label for="password">Password</label>
+                <div class="form__password-error form__error hidden">Please enter a valid password</div>
+                <input type="password" name="password" id="password">
+            </div>
+            
+            <button id="form__login-button">Login</button>
+        </form>
+        <div class="admin-links hidden">
+            <a href="products.html">Edit or delete a product</a>
+            <a href="">Create a new product</a>
+            <button id="logout">Log Out</button>
+        </div>  
+    </main>
+    <footer>
+        <p>Quick Links</p>
+    </footer>
+</body>
+<script src="./javascript/admin.js" type="module"></script>
+</html>
+

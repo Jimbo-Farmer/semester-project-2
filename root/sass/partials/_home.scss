@@ -1,0 +1,18 @@
+.hero-container {
+    img {
+        width: 100%;
+        max-height: 400px;
+        object-fit: cover;
+        object-position: center;
+        @media (min-width: 1024px) {
+            max-height: 500px;
+        }
+        @media (min-width: 1450px) {
+            max-height: 600px;
+        }
+    }
+    border-bottom: 6px solid $colour-pinkshock;
+    font-size: 0;
+}
+
+

@@ -1,0 +1,76 @@
+body {
+    font-family: $font-copy;
+    max-width: 1920px;
+    margin: 0 auto;
+    background-color: black;
+}
+
+main, footer {
+    background-color: $colour-coolblue;
+    padding-bottom: 10px;
+    padding-top: 1px;
+}
+
+main {
+    min-height: 90vh;
+}
+
+.message {
+    border: 2px solid grey;
+    width: 60%;
+    min-width: 250px;
+    max-width: 600px;
+    margin: 10px auto;
+    padding: 20px;
+    background-color: white;
+    &.error {
+        border-color: red;
+    }
+    &.info {
+        border-color: yellow;
+    }
+    &.success {
+        border-color: green;
+    }
+}
+
+h1, h2 {
+    color: white;
+    text-transform: uppercase;
+    font-style: italic;
+    text-align: center;
+    font-size: 28px;
+    font-family: $font-header;
+    @media (min-width: 1024px) {
+        font-size: 37px;
+        margin: 37px auto;
+    }
+}
+
+h2 {
+    font-size: 21px;
+}
+
+a {
+    text-decoration: none;
+}
+
+.back-link {
+    display: inline-block;
+    padding: 5px 16px;
+    margin: 16px 0 16px 5%;
+    color: white;
+    text-transform: uppercase;
+    &:hover {
+        border-radius: 4px;
+        background-color: $colour-graphite;
+        filter: drop-shadow(1px 1px 2px $colour-pinkshock);
+    }
+    @media (min-width: 1024px) {
+        margin-left: 10%;
+    }
+}
+
+.hidden {
+    display: none;
+}
