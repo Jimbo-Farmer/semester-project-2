@@ -18,10 +18,19 @@ function drawCart(cart, container, url){
     container.innerHTML = ``;
     let totalPrice = 0;
     cart.forEach(item => {
+        let image;
+        let altText;
+        if(!(item.image)){
+            image = item.image_url;
+            altText = item.alternativeText;
+        } else {
+            image = url + item.image.url;
+            altText = item.image.alternativeText;
+        }
         container.innerHTML += `
         <div class="cart-item">
             <div class="cart-item__thumbnail">
-                <img src="${url}${item.image.formats.small.url}"></img>
+                <img src="${image}" alt="${altText}"></img>
             </div>
             <div class="cart-item__details">
                 <h2>${item.title}</h2>

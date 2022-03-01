@@ -7,9 +7,11 @@ export function drawProductCards(list, container, url){
         userMessage("info", "No products to display", container);
     } else {
         list.forEach(product => {
+            const image = product.image ? url + product.image.url : product.image_url;
+            const altText = product.image.alternativeText ? product.image.alternativeText : product.title;
             container.innerHTML += 
             `<div class="product__card" data-id=${product.id}>
-                <img class="product__image"  src="${url}${product.image.url}" alt="${product.image.alternativeText}">
+                <img class="product__image"  src="${image}" alt="${altText}">
                 <h2>${product.title}</h2>
                 <p class="product__price">$${product.price.toFixed(2)}</p>
                 <a class="product__cta" href="detail.html?id=${product.id}">More</a>
@@ -20,10 +22,12 @@ export function drawProductCards(list, container, url){
 
 export function drawProductDetails(product, container, url){
     document.title = `Kicks | ${product.title}`
+    const image = product.image ? url + product.image.url : product.image_url;
+    const altText = product.image.alternativeText ? product.image.alternativeText : product.title;
     container.innerHTML = 
     `<h1>${product.title}</h1>
     <div class="product__details">
-        <img class="product__image"  src="${url}${product.image.url}" alt="${product.image.alternativeText}">
+        <img class="product__image"  src="${image}" alt="${altText}">
         <div class="product__info">
             <p class="product__description">${product.description}</p>
             <p class="product__price">$${product.price.toFixed(2)}</p>
@@ -43,14 +47,16 @@ export function editableCards(){
 }
 
 export function drawEditableProduct(product, container, url){
-    document.title = `Edit | ${product.title}`
+    document.title = `Edit | ${product.title}`;
+    const image = product.image ? url + product.image.url : product.image_url;
+    const altText = product.image.alternativeText ? product.image.alternativeText : product.title;
     container.innerHTML = 
     `
     <form id="edit-form" action="">
         <label for="title">Title</label>
         <input type="text" id="title" name="title" value="${product.title}"/>
         <div class="form__product-details">
-            <img class="product__image"  src="${url}${product.image.url}" alt="${product.image.alternativeText}">
+            <img class="product__image"  src="${image}" alt="${altText}">
             <button type="button" class="product__cta image-replace">Replace Image</button>
             <div class="product__info">
                 <label for="description">Description</label>
@@ -60,20 +66,24 @@ export function drawEditableProduct(product, container, url){
                 <label for="featured">Featured</label>
                 <input type="checkbox" id="featured" name="featured"/>
                 <button type="submit" class="product__cta product__edit">Update</button>
-                <button class="product__cta product__delete">Delete</button>
+                <button type="button" class="product__cta product__delete">Delete</button>
             </div>
         </div>
     </form>
     <div class="product__image-form"></div>`;    
 }
 
-export function drawImageForm(container){
+export function drawImageForm(product, container, url){
+    const image = product.image ? url + product.image.url : product.image_url;
+    const altText = product.image.alternativeText ? product.image.alternativeText : product.title;
     container.innerHTML = 
     `<form id="image-form" action="">
+        <div class="image-container">
+            <img class="product__image" id="image-preview" src="${image}" alt="${altText}">
+        </div>
         <label for="image">Select Image File</label>
         <input type="file" id="image" name="image"/>
-        <label for="alt-text">Alt Text</label>
-        <input type="text" id="alt-text" name="alternativeText"/>
+        
         <button type="submit" class="product__cta image-upload">Upload</button>
         <button type="button" class="close-button">Close X</button>
     </form>`;    
@@ -105,5 +115,8 @@ export function drawCreateProduct(product, container, url){
 }
 
 
-{/* <label for="image">Replace Image</label>
-            <input type="file" id="image" name="image"/> */}
+// Couldn't get custom alt-text to work. 
+// <label for="alt-text">Alt Text</label>
+// <input type="text" id="alt-text" name="alternativeText"/>
+
+  

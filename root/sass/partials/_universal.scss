@@ -16,7 +16,7 @@ main {
 }
 
 .message {
-    border: 2px solid grey;
+    border: 3px solid grey;
     width: 60%;
     min-width: 250px;
     max-width: 600px;
@@ -30,7 +30,7 @@ main {
         border-color: yellow;
     }
     &.success {
-        border-color: green;
+        border-color: rgb(1, 218, 1);
     }
 }
 

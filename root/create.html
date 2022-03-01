@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Kicks: urban footwear for movement, style and comfort">
-    <title>Kicks | Login</title>
+    <title>Kicks | Create Product</title>
     <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
@@ -16,7 +16,7 @@
         <nav>
             <a class="nav__link products__link" href="products.html">Products</a>
             <a class="nav__link cart__link" href="cart.html">Cart</a>
-            <a class="nav__link admin__link nav__link--active" href="admin.html">Admin</a>
+            <a class="nav__link admin__link" href="admin.html">Admin</a>
             <div id="hamburger" class="">
                 <div class="burger__layer burger__top"></div>
                 <div class="burger__layer burger__middle1"></div>
@@ -35,32 +35,29 @@
     </header>
     <main>
         <div class="message-container"></div>
-        <h1>Administration</h1>
-        <form class="login">
-            <h2>To create, edit and delete kicks products please log in</h2>
-            <div class="form__block">
-                <label for="username">Username</label>
-                <div class="form__username-error form__error hidden">Please enter a valid username</div>
-                <input type="text" name="username" id="username">
-            </div>
-            <div class="form__block">
-                <label for="password">Password</label>
-                <div class="form__password-error form__error hidden">Please enter a valid password</div>
-                <input type="password" name="password" id="password">
-            </div>
+        <h1>Create a Product Listing</h1>
+    
+        <form id="create-form" action="" method="POST">
+            <label for="title">Title</label>
+            <input type="text" id="title" name="title"/>
+            <label for="image">Select Image File</label>
+            <input type="file" id="image" name="image"/>
+            <!-- <label for="alt-text">Alt Text</label>
+            <input type="text" id="alt-text" name="alternativeText"/> -->
+            <label for="description">Description</label>
+            <textarea id="description" name="description" cols="30" rows="10"></textarea>
+            <label for="price">Price ($)</label>
+            <input type="text" id="price" name="price" />
+            <label for="featured">Featured</label>
+            <input type="checkbox" id="featured" name="featured"/>
+            <button type="submit" class="product__cta product__create">Create</button>              
             
-            <button id="form__login-button">Login</button>
         </form>
-        <div class="admin-links hidden">
-            <a href="products.html">Edit or delete a product</a>
-            <a href="create.html">Create a new product</a>
-            <button id="logout">Log Out</button>
-        </div>  
+        <a class="back-link" href="admin.html">&#60&#60 Back to administration</a>
     </main>
     <footer>
         <p>Quick Links</p>
     </footer>
 </body>
-<script src="./javascript/admin.js" type="module"></script>
+<script src="./javascript/create.js" type="module"></script>
 </html>
-

@@ -1,5 +1,5 @@
 import { drawProductCards, editableCards } from "./draw.js";
-import {getUserInfo} from "./storage.js";
+
 
 function filterList(list, searchText){
     const filteredProducts= list.filter(function(item){

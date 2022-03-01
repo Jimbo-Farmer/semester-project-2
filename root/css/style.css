@@ -17,7 +17,7 @@ main {
 }
 
 .message {
-  border: 2px solid grey;
+  border: 3px solid grey;
   width: 60%;
   min-width: 250px;
   max-width: 600px;
@@ -35,7 +35,7 @@ main {
 }
 
 .message.success {
-  border-color: green;
+  border-color: #01da01;
 }
 
 h1, h2 {
@@ -674,58 +674,63 @@ form button {
   font-family: "Syncopate", sans-serif;
 }
 
-#edit-form {
+#edit-form, #create-form {
   max-width: 600px;
   background-color: #363636;
-  padding: 20px;
+  padding: 18px;
 }
 
-#edit-form input {
+#edit-form input, #create-form input {
   width: 80%;
 }
 
-#edit-form textarea {
+#edit-form textarea, #create-form textarea {
   width: 80%;
 }
 
-#edit-form img {
+#edit-form img, #create-form img {
   max-width: 300px;
   margin-top: 20px;
 }
 
-#edit-form .image-replace {
+#edit-form #image, #create-form #image {
+  color: white;
+  text-align: center;
+}
+
+#edit-form .image-replace, #create-form .image-replace {
   margin-top: 5px;
 }
 
-#edit-form label {
+#edit-form label, #create-form label {
   margin-top: 20px;
 }
 
-#edit-form button {
+#edit-form button, #create-form button {
   margin-top: 30px;
   display: block;
   width: 300px;
 }
 
-#edit-form .product__edit {
+#edit-form .product__edit, #edit-form .product__create, #create-form .product__edit, #create-form .product__create {
   color: white;
   background-color: #0066FF;
 }
 
-#edit-form .product__edit:hover {
+#edit-form .product__edit:hover, #edit-form .product__create:hover, #create-form .product__edit:hover, #create-form .product__create:hover {
   color: black;
   background-color: white;
 }
 
-#edit-form .product__delete {
+#edit-form .product__delete, #create-form .product__delete {
   background-color: #FF4646;
 }
 
-#edit-form .product__delete:hover {
+#edit-form .product__delete:hover, #create-form .product__delete:hover {
   background-color: white;
 }
 
-#edit-form #featured {
+#edit-form #featured, #create-form #featured {
   height: 18px;
 }
 
@@ -749,9 +754,14 @@ form button {
 
 .product__image-form.open form {
   position: relative;
-  width: 600px;
   background-color: #363636;
   padding: 20px;
+}
+
+@media (min-width: 768px) {
+  .product__image-form.open form {
+    width: 600px;
+  }
 }
 
 .product__image-form.open form .close-button {
@@ -759,6 +769,21 @@ form button {
   top: 5px;
   right: 15px;
   padding: 2px;
+}
+
+.product__image-form.open form .image-container {
+  background-position: center;
+  background-size: cover;
+  width: 80%;
+  margin: 0 auto;
+  height: 250px;
+  overflow: hidden;
+}
+
+@media (min-width: 600px) {
+  .product__image-form.open form .image-container {
+    height: 350px;
+  }
 }
 
 .product__image-form.open form #image {

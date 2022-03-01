@@ -28,10 +28,10 @@ form {
     }
 }
 
-#edit-form {
+#edit-form, #create-form {
     max-width: 600px;
     background-color: $colour-graphite;
-    padding: 20px;
+    padding: 18px;
     input {
         width: 80%;
     }
@@ -41,6 +41,10 @@ form {
     img {
         max-width: 300px;
         margin-top: 20px;
+    }
+    #image {
+        color: white;
+        text-align: center;
     }
     .image-replace {
         margin-top: 5px;
@@ -54,7 +58,7 @@ form {
         width: 300px;
     }
 
-    .product__edit {
+    .product__edit, .product__create {
         color: white;
         background-color: $colour-coolblue;
         &:hover {
@@ -85,14 +89,28 @@ form {
     justify-content: center;
     form {
         position: relative;
-        width: 600px;
+        // width: 300px;
         background-color: $colour-graphite;
         padding: 20px;
+        @media (min-width: 768px) {
+            width: 600px;
+        }
         .close-button {
             position: absolute;
             top: 5px;
             right: 15px;
             padding: 2px;
+        }
+        .image-container {
+            background-position: center;
+            background-size: cover;
+            width: 80%;
+            margin: 0 auto;
+            height: 250px;
+            overflow: hidden;
+            @media (min-width: 600px) {
+                height: 350px;
+            }
         }
         #image {
             color: white;

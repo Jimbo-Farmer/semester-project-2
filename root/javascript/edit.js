@@ -27,7 +27,9 @@ const url = baseUrl +"/products/" +id;
         drawEditableProduct(product, productContainer, baseUrl);
         const featuredBox = document.querySelector("#featured");
         featuredBox.checked = product.featured; 
+        console.log(product)
 
+        //Update product details-------------------------------------------------
         const updateButton = document.querySelector(".product__edit");
         updateButton.onclick = function(event){
             event.preventDefault();
@@ -43,47 +45,42 @@ const url = baseUrl +"/products/" +id;
             
         }
 
+        const deleteButton = document.querySelector(".product__delete");
+        deleteButton.onclick = deleteProduct;
+
         const replaceImageButton = document.querySelector(".image-replace");
 
         replaceImageButton.onclick = function(){
             const imageFormContainer = document.querySelector(".product__image-form");
-            drawImageForm(imageFormContainer);
+            drawImageForm(product, imageFormContainer, baseUrl);
             imageFormContainer.classList.add("open");
-            const imageForm = document.querySelector("#image-form");
-            const imageInputs = document.querySelectorAll("#image-form input");
-            
-            
+            const imageContainer = document.querySelector(".image-container");
+            const imageForm = document.querySelector("#image-form");         
+            const imageInput = document.querySelector("#image");
+
+            imageInput.addEventListener("change", ()=> {
+                const reader = new FileReader();
+                reader.addEventListener("load", ()=> {
+                    imageContainer.innerHTML="";
+                    imageContainer.style.backgroundImage = `url(${reader.result})`;
+                    
+                })
+                reader.readAsDataURL(imageInput.files[0]);   
+            })
             
             imageForm.onsubmit = function(event){
-                event.preventDefault();
-                // const fileInput = document.querySelector("#image");
+                event.preventDefault();               
+                const image = imageInput.files[0];
+                // const altText = document.querySelector("#alt-text").value.trim();
                 const formData = new FormData();
-                const inputData = {};               //from Oliver Dipple's code
-
-                for(let inputElement of imageInputs){
-                    switch(inputElement.type){
-                        case "file":
-                            for(let file of inputElement.files){
-                                formData.append(`files.${inputElement.name}`, file, file.name);
-                            }
-                            break;
-                        default: 
-                            inputData[inputElement.name] = inputElement.value;
-                            break;
-                    }
-                }
-                formData.append('data', JSON.stringify(inputData));
-
-
-                // formData.append("image", imageInput.files[0]);
-                // formData.append("refId", 2);
+                formData.append("files.image", image, image.name); 
+                formData.append("data", JSON.stringify({}));
+                updateImage(formData);
                 // let fileData = {};
                 // formData.forEach(function(value, key){
                 //    fileData[key] = value;
                 // })
-                // console.log(JSON.stringify(fileData));
                 // console.log(fileData)
-                updateImage(formData);
             };
 
             const closeButton = document.querySelector(".close-button");
@@ -110,10 +107,13 @@ async function updateProduct(title, description, price, featured){
     };
 
     try {
-        const response = await fetch(baseUrl +"/products/", options);
+        const response = await fetch(url, options);
         const updatedProduct = await response.json();
-
-        console.log(updatedProduct);
+        if(updatedProduct.title){
+            userMessage("success", `${updatedProduct.title} has been successfully updated`, messageContainer)
+            productContainer.innerHTML = ``;
+        }
+        
     } catch (error) {
         userMessage("error", `An error occurred. Details: ${error}`, messageContainer)
     }
@@ -121,13 +121,11 @@ async function updateProduct(title, description, price, featured){
 };
 
 async function updateImage(data){
-    
-    
     const options = {
         method: "PUT",
         body: data,
         headers: {
-            "Content-Type": "application/json",
+            
             Authorization: `Bearer ${token}`,
         }
     };
@@ -135,9 +133,35 @@ async function updateImage(data){
     try {
         const response = await fetch(url, options);
         const updatedProduct = await response.json();
-
+        if(updatedProduct.image){
+            userMessage("success", `Image for ${updatedProduct.title} has been successfully updated`, messageContainer)
+            productContainer.innerHTML = ``;
+        }
         console.log(updatedProduct);
     } catch (error) {
         userMessage("error", `An error occurred. Details: ${error}`, messageContainer)
     }
 };
+
+async function deleteProduct(){
+            
+    const verified = confirm("Are you sure you want to delete this product?");
+    if(verified){
+        const options = {
+            method: "DELETE",
+            headers: {Authorization: `Bearer ${token}`}
+        }
+        try {
+            console.log(id);
+            const response = await fetch(url, options);
+            const result = await response.json();
+    
+            if(result.title){
+                userMessage("success", `${result.title} has been successfully deleted`, messageContainer)
+                productContainer.innerHTML = ``;
+            }
+        } catch (error) {
+            userMessage("error", `An error occurred. Details: ${error}`, messageContainer)
+        }
+    } 
+}
