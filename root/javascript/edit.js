@@ -1,4 +1,4 @@
-import { baseUrl, userMessage } from "./resources/universal.js";
+import { baseUrl, productsUrl, mediaUrl, userMessage } from "./resources/universal.js";
 import { hamburger, cartQtyDisplay } from "./components/nav.js";
 import { drawEditableProduct, drawImageForm } from "./components/draw.js";
 import { getCart, getToken } from "./components/storage.js";
@@ -18,17 +18,35 @@ const queryString = document.location.search;
 const params = new URLSearchParams(queryString);
 const id = params.get("id");
 
-const url = baseUrl +"/products/" +id;
+const url = productsUrl +id;
+const featuredUrl = productsUrl + "?featured=true";
+const updatesUrl = baseUrl +"wp-json/wc/v3/products/" +id;
+
+
+
 
 (async function getProduct(){
     try {
         const response = await fetch(url);
         const product = await response.json();
-        drawEditableProduct(product, productContainer, baseUrl);
+        drawEditableProduct(product, productContainer);
         const featuredBox = document.querySelector("#featured");
-        featuredBox.checked = product.featured; 
         console.log(product)
 
+        try {
+            const featResponse = await fetch(featuredUrl);
+            const featProducts = await featResponse.json();
+            console.log(featProducts)
+            featProducts.forEach(featuredProduct => {
+                if(featuredProduct.id === product.id){
+                    featuredBox.checked = true;
+                }
+            })
+        }
+        catch {
+
+        }
+        
         //Update product details-------------------------------------------------
         const updateButton = document.querySelector(".product__edit");
         updateButton.onclick = function(event){
@@ -52,7 +70,7 @@ const url = baseUrl +"/products/" +id;
 
         replaceImageButton.onclick = function(){
             const imageFormContainer = document.querySelector(".product__image-form");
-            drawImageForm(product, imageFormContainer, baseUrl);
+            drawImageForm(product, imageFormContainer);
             imageFormContainer.classList.add("open");
             const imageContainer = document.querySelector(".image-container");
             const imageForm = document.querySelector("#image-form");         
@@ -65,7 +83,7 @@ const url = baseUrl +"/products/" +id;
                     imageContainer.style.backgroundImage = `url(${reader.result})`;
                     
                 })
-                reader.readAsDataURL(imageInput.files[0]);   
+                reader.readAsDataURL(imageInput.files[0]);  
             })
             
             imageForm.onsubmit = function(event){
@@ -73,14 +91,10 @@ const url = baseUrl +"/products/" +id;
                 const image = imageInput.files[0];
                 // const altText = document.querySelector("#alt-text").value.trim();
                 const formData = new FormData();
-                formData.append("files.image", image, image.name); 
+                formData.append("file", image); 
                 formData.append("data", JSON.stringify({}));
-                updateImage(formData);
-                // let fileData = {};
-                // formData.forEach(function(value, key){
-                //    fileData[key] = value;
-                // })
-                // console.log(fileData)
+                updateImage(formData)
+                
             };
 
             const closeButton = document.querySelector(".close-button");
@@ -95,7 +109,7 @@ const url = baseUrl +"/products/" +id;
 })();
 
 async function updateProduct(title, description, price, featured){
-    const data = JSON.stringify({"title": title, "description": description, "price": price, "featured": featured});
+    const data = JSON.stringify({"name": title, "description": description, "regular_price": price, "featured": featured});
     console.log(data);
     const options = {
         method: "PUT",
@@ -107,10 +121,11 @@ async function updateProduct(title, description, price, featured){
     };
 
     try {
-        const response = await fetch(url, options);
+        const response = await fetch(updatesUrl, options);
         const updatedProduct = await response.json();
-        if(updatedProduct.title){
-            userMessage("success", `${updatedProduct.title} has been successfully updated`, messageContainer)
+        console.log(updatedProduct)
+        if(updatedProduct.name){
+            userMessage("success", `${updatedProduct.name} has been successfully updated`, messageContainer)
             productContainer.innerHTML = ``;
         }
         
@@ -121,8 +136,9 @@ async function updateProduct(title, description, price, featured){
 };
 
 async function updateImage(data){
+    
     const options = {
-        method: "PUT",
+        method: "POST",
         body: data,
         headers: {
             
@@ -131,12 +147,12 @@ async function updateImage(data){
     };
 
     try {
-        const response = await fetch(url, options);
+        const response = await fetch(mediaUrl, options);
         const updatedProduct = await response.json();
-        if(updatedProduct.image){
-            userMessage("success", `Image for ${updatedProduct.title} has been successfully updated`, messageContainer)
-            productContainer.innerHTML = ``;
-        }
+        // if(updatedProduct.image){
+        //     userMessage("success", `Image for ${updatedProduct.title} has been successfully updated`, messageContainer)
+        //     productContainer.innerHTML = ``;
+        // }
         console.log(updatedProduct);
     } catch (error) {
         userMessage("error", `An error occurred. Details: ${error}`, messageContainer)

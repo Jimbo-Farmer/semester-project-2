@@ -1,36 +1,32 @@
 import { userMessage } from "../resources/universal.js";
 import { getUserInfo } from "./storage.js";
 
-export function drawProductCards(list, container, url){
+export function drawProductCards(list, container){
     container.innerHTML = "";
     if(list.length === 0){
         userMessage("info", "No products to display", container);
     } else {
         list.forEach(product => {
-            const image = product.image ? url + product.image.url : product.image_url;
-            const altText = product.image.alternativeText ? product.image.alternativeText : product.title;
             container.innerHTML += 
             `<div class="product__card" data-id=${product.id}>
-                <img class="product__image"  src="${image}" alt="${altText}">
-                <h2>${product.title}</h2>
-                <p class="product__price">$${product.price.toFixed(2)}</p>
+                <img class="product__image"  src="${product.images[0].src}" alt="${product.images[0].alt}">
+                <h2>${product.name}</h2>
+                <p class="product__price">${parseInt(product.prices.price).toFixed(2)}kr</p>
                 <a class="product__cta" href="detail.html?id=${product.id}">More</a>
             </div>`;
         })
     }   
 }
 
-export function drawProductDetails(product, container, url){
-    document.title = `Kicks | ${product.title}`
-    const image = product.image ? url + product.image.url : product.image_url;
-    const altText = product.image.alternativeText ? product.image.alternativeText : product.title;
+export function drawProductDetails(product, container){
+    document.title = `Kicks | ${product.name}`
     container.innerHTML = 
-    `<h1>${product.title}</h1>
+    `<h1>${product.name}</h1>
     <div class="product__details">
-        <img class="product__image"  src="${image}" alt="${altText}">
+        <img class="product__image"  src="${product.images[0].src}" alt="${product.images[0].alt}">
         <div class="product__info">
-            <p class="product__description">${product.description}</p>
-            <p class="product__price">$${product.price.toFixed(2)}</p>
+            <p class="product__description">${product.description.slice(0, -4).substring(3)}</p>
+            <p class="product__price">${parseInt(product.prices.price).toFixed(2)}kr</p>
             <button class="product__cta product__add">Add to cart</button>
         </div>
     </div>`;
@@ -47,22 +43,20 @@ export function editableCards(){
 }
 
 export function drawEditableProduct(product, container, url){
-    document.title = `Edit | ${product.title}`;
-    const image = product.image ? url + product.image.url : product.image_url;
-    const altText = product.image.alternativeText ? product.image.alternativeText : product.title;
+    document.title = `Edit | ${product.name}`;
     container.innerHTML = 
     `
     <form id="edit-form" action="">
         <label for="title">Title</label>
-        <input type="text" id="title" name="title" value="${product.title}"/>
+        <input type="text" id="title" name="title" value="${product.name}"/>
         <div class="form__product-details">
-            <img class="product__image"  src="${image}" alt="${altText}">
+            <img class="product__image"  src="${product.images[0].src}" alt="${product.images[0].alt}">
             <button type="button" class="product__cta image-replace">Replace Image</button>
             <div class="product__info">
                 <label for="description">Description</label>
-                <textarea id="description" name="description" cols="30" rows="10">${product.description}</textarea>
-                <label for="price">Price ($)</label>
-                <input type="text" id="price" name="price" value="${product.price.toFixed(2)}"/>
+                <textarea id="description" name="description" cols="30" rows="10">${product.description.slice(0, -4).substring(3)}</textarea>  
+                <label for="price">Price (NOK)</label>
+                <input type="text" id="price" name="price" value="${parseInt(product.prices.price).toFixed(2)}"/>
                 <label for="featured">Featured</label>
                 <input type="checkbox" id="featured" name="featured"/>
                 <button type="submit" class="product__cta product__edit">Update</button>
@@ -73,13 +67,11 @@ export function drawEditableProduct(product, container, url){
     <div class="product__image-form"></div>`;    
 }
 
-export function drawImageForm(product, container, url){
-    const image = product.image ? url + product.image.url : product.image_url;
-    const altText = product.image.alternativeText ? product.image.alternativeText : product.title;
+export function drawImageForm(product, container){
     container.innerHTML = 
     `<form id="image-form" action="">
         <div class="image-container">
-            <img class="product__image" id="image-preview" src="${image}" alt="${altText}">
+            <img class="product__image" id="image-preview" src="${product.images[0].src}" alt="${product.images[0].alt}">
         </div>
         <label for="image">Select Image File</label>
         <input type="file" id="image" name="image"/>
@@ -89,34 +81,6 @@ export function drawImageForm(product, container, url){
     </form>`;    
 }
 
-export function drawCreateProduct(product, container, url){
-    document.title = `Edit | ${product.title}`
-    container.innerHTML = 
-    `
-    <h1>Create new product</h1>
-    <form id="create-form" action="">
-        <label for="title">Title</label>
-        <input type="text" id="title" name="title"/>
-        <div class="form__product-details">
-            <label for="image">Image</label>
-            <input type="file" id="image" name="image"/>
-            <div class="product__info">
-                <label for="description">Description</label>
-                <textarea id="description" name="description" cols="30" rows="10"></textarea>
-                <label for="price">Price ($)</label>
-                <input type="text" id="price" name="price"/>
-                <label for="featured">Featured</label>
-                <input type="checkbox" id="featured" name="featured"/>
-                <button class="product__cta product__edit">Update</button>
-                <button class="product__cta product__delete">Delete</button>
-            </div>
-        </div>
-    </form>`;    
-}
 
-
-// Couldn't get custom alt-text to work. 
-// <label for="alt-text">Alt Text</label>
-// <input type="text" id="alt-text" name="alternativeText"/>
 
   

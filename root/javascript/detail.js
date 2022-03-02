@@ -1,4 +1,4 @@
-import { baseUrl, userMessage } from "./resources/universal.js";
+import { productsUrl, userMessage } from "./resources/universal.js";
 import { hamburger, cartQtyDisplay } from "./components/nav.js";
 import { drawProductDetails } from "./components/draw.js";
 import { adjustCart, getCart } from "./components/storage.js";
@@ -13,13 +13,13 @@ const queryString = document.location.search;
 const params = new URLSearchParams(queryString);
 const id = params.get("id");
 
-const url = baseUrl +"/products/" +id;
+const url = productsUrl + id;
 
 (async function getProduct(){
     try {
         const response = await fetch(url);
         const product = await response.json();
-        drawProductDetails(product, productContainer, baseUrl);
+        drawProductDetails(product, productContainer);
         const addToCartButton = document.querySelector(".product__add");
         addToCartButton.onclick = function(event){
             adjustCart(cart, product, "add");

@@ -1,10 +1,10 @@
-import { baseUrl, userMessage } from "./resources/universal.js";
+import { loginUrl, userMessage } from "./resources/universal.js";
 import { hamburger, cartQtyDisplay } from "./components/nav.js";
 import { saveUser, logOut, getUserInfo, saveUserToken } from "./components/storage.js";
 
 hamburger();
 
-const url = baseUrl + '/auth/local';
+
 const messageContainer = document.querySelector(".message-container");
 const adminLinks = document.querySelector(".admin-links");
 const logoutButton = document.querySelector("#logout");
@@ -40,7 +40,7 @@ form.onsubmit = function(event){
     logUserIn(username, password);
 
     async function logUserIn(username, password){
-        const data = JSON.stringify({identifier: username, password: password});
+        const data = JSON.stringify({username: username, password: password});
         const options = {
             method: 'POST',
             body: data,
@@ -49,11 +49,12 @@ form.onsubmit = function(event){
             }
         };
         try {
-            const response = await fetch(url, options);
+            const response = await fetch(loginUrl, options);
             const output = await response.json();
-            if(output.jwt){
-                saveUser(output.user);
-                saveUserToken(output.jwt);
+            console.log(output)
+            if(output.data.token){
+                saveUser(output.data.nicename);
+                saveUserToken(output.data.token);
                 window.location.reload();
             } else {
                 userMessage("error", `An unknown error occurred`, messageContainer);
