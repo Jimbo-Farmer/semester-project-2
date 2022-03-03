@@ -19,6 +19,7 @@ const url = productsUrl + id;
     try {
         const response = await fetch(url);
         const product = await response.json();
+        productContainer.classList.remove("loading");
         drawProductDetails(product, productContainer);
         const addToCartButton = document.querySelector(".product__add");
         addToCartButton.onclick = function(event){

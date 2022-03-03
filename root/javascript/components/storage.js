@@ -62,6 +62,27 @@ export function logOut(){
     location.reload();
 }
 
+// Hacky way of reloading pages to update with new product or edited product
+
+export function scheduleReload(){
+    savetoStorage("reloadHome", true);
+    savetoStorage("reloadProducts", true);
+}
+
+export function doHomeReload(){
+    if(getFromStorage("reloadHome")){
+        localStorage.removeItem("reloadHome");
+        document.location.reload(true);
+    }  
+}
+
+export function doProductsReload(){
+    if(getFromStorage("reloadProducts")){
+        localStorage.removeItem("reloadProducts");
+        document.location.reload(true);
+    }  
+}
+
 // generic save and retrieve functions------------------------------------------------
 
 function savetoStorage(key, value){

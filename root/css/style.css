@@ -71,10 +71,7 @@ a {
 }
 
 .back-link:hover {
-  border-radius: 4px;
-  background-color: #363636;
-  -webkit-filter: drop-shadow(1px 1px 2px #FF4646);
-          filter: drop-shadow(1px 1px 2px #FF4646);
+  text-decoration: underline;
 }
 
 @media (min-width: 1024px) {
@@ -85,6 +82,71 @@ a {
 
 .hidden {
   display: none;
+}
+
+.loading div {
+  text-align: center;
+}
+
+.loading h2 {
+  margin-bottom: 2px;
+}
+
+.loading #loading-logo {
+  width: 40px;
+  height: 40px;
+  -webkit-transform: rotate(90deg);
+          transform: rotate(90deg);
+  -webkit-animation: slide 0.8s ease-in-out infinite;
+          animation: slide 0.8s ease-in-out infinite;
+}
+
+@-webkit-keyframes slide {
+  0% {
+    margin-left: -80px;
+    -webkit-transform: rotate(90deg);
+            transform: rotate(90deg);
+  }
+  49% {
+    -webkit-transform: rotate(90deg);
+            transform: rotate(90deg);
+  }
+  50% {
+    margin-left: 200px;
+    -webkit-transform: rotate(270deg);
+            transform: rotate(270deg);
+  }
+  99% {
+    -webkit-transform: rotate(270deg);
+            transform: rotate(270deg);
+  }
+  100% {
+    margin-left: -80px;
+  }
+}
+
+@keyframes slide {
+  0% {
+    margin-left: -80px;
+    -webkit-transform: rotate(90deg);
+            transform: rotate(90deg);
+  }
+  49% {
+    -webkit-transform: rotate(90deg);
+            transform: rotate(90deg);
+  }
+  50% {
+    margin-left: 200px;
+    -webkit-transform: rotate(270deg);
+            transform: rotate(270deg);
+  }
+  99% {
+    -webkit-transform: rotate(270deg);
+            transform: rotate(270deg);
+  }
+  100% {
+    margin-left: -80px;
+  }
 }
 
 header {
@@ -774,6 +836,7 @@ form button {
 .product__image-form.open form .image-container {
   background-position: center;
   background-size: cover;
+  background-color: white;
   width: 80%;
   margin: 0 auto;
   height: 250px;

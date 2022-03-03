@@ -11,7 +11,7 @@ export function drawProductCards(list, container){
             `<div class="product__card" data-id=${product.id}>
                 <img class="product__image"  src="${product.images[0].src}" alt="${product.images[0].alt}">
                 <h2>${product.name}</h2>
-                <p class="product__price">${parseInt(product.prices.price).toFixed(2)}kr</p>
+                <p class="product__price">kr ${parseInt(product.prices.price)}</p>
                 <a class="product__cta" href="detail.html?id=${product.id}">More</a>
             </div>`;
         })
@@ -26,7 +26,7 @@ export function drawProductDetails(product, container){
         <img class="product__image"  src="${product.images[0].src}" alt="${product.images[0].alt}">
         <div class="product__info">
             <p class="product__description">${product.description.slice(0, -4).substring(3)}</p>
-            <p class="product__price">${parseInt(product.prices.price).toFixed(2)}kr</p>
+            <p class="product__price">kr ${parseInt(product.prices.price).toFixed(2)}</p>
             <button class="product__cta product__add">Add to cart</button>
         </div>
     </div>`;
@@ -42,7 +42,7 @@ export function editableCards(){
         } 
 }
 
-export function drawEditableProduct(product, container, url){
+export function drawEditableProduct(product, container){
     document.title = `Edit | ${product.name}`;
     container.innerHTML = 
     `
@@ -53,6 +53,8 @@ export function drawEditableProduct(product, container, url){
             <img class="product__image"  src="${product.images[0].src}" alt="${product.images[0].alt}">
             <button type="button" class="product__cta image-replace">Replace Image</button>
             <div class="product__info">
+                <label for="alt-text">Image Alternative Text</label>
+                <input type="text" id="alt-text" name="alt-text" value="${product.images[0].alt}"/>
                 <label for="description">Description</label>
                 <textarea id="description" name="description" cols="30" rows="10">${product.description.slice(0, -4).substring(3)}</textarea>  
                 <label for="price">Price (NOK)</label>
@@ -70,17 +72,30 @@ export function drawEditableProduct(product, container, url){
 export function drawImageForm(product, container){
     container.innerHTML = 
     `<form id="image-form" action="">
+        <div class="image-form__message"></div>
         <div class="image-container">
             <img class="product__image" id="image-preview" src="${product.images[0].src}" alt="${product.images[0].alt}">
         </div>
         <label for="image">Select Image File</label>
         <input type="file" id="image" name="image"/>
-        
         <button type="submit" class="product__cta image-upload">Upload</button>
         <button type="button" class="close-button">Close X</button>
     </form>`;    
 }
 
+export function drawNewImageForm(container){
+    container.innerHTML = 
+    `<form id="image-form" action="">
+        <div class="image-form__message"></div>
+        <div class="image-container">
+            <img class="product__image" id="image-preview" src="" alt="">
+        </div>
+        <label for="image">Select Image File</label>
+        <input type="file" id="image" name="image"/>
+        <button type="submit" class="product__cta image-upload">Upload</button>
+        <button type="button" class="close-button">Close X</button>
+    </form>`;    
+}
 
 
   

@@ -7,11 +7,12 @@
     <meta name="description" content="Kicks: urban footwear for movement, style and comfort">
     <title>Kicks | Products</title>
     <link rel="stylesheet" href="./css/style.css">
+    <link rel="shortcut icon" href="./images/logo-bare.svg" type="image/x-icon">
 </head>
 <body>
     <header>
         <a href="index.html" class="brand">
-                <img class="brand__logo" src="./images/logo1.svg" alt="The word 'Kicks' in all caps, links to home">
+                <img class="brand__logo" src="./images/logo-new.svg" alt="The word 'Kicks' in all caps, links to home">
         </a>
         <nav>
             <a class="nav__link products__link nav__link--active" href="products.html">Products</a>
@@ -36,13 +37,19 @@
     <main>
         <div class="message-container"></div>
         <h1>Get your kicks</h1>
+        
         <div class="search-container">
             <label for="search">Search</label>
             <input type="text" name="search" id="search">
             <button id="search-button">Go</button>
         </div>
-        
-        <div class="products-container"></div>
+        <div class="products-container loading">
+            <div></div>
+            <div>
+                <h2>Finding your next kicks</h2>
+                <img id="loading-logo" src="./images/logo-bare.svg" alt="logo to indicate loading">
+            </div>
+        </div>
     </main>
     <footer>
         <p>Quick Links</p>

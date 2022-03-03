@@ -1,11 +1,14 @@
 import { mediaUrl, productsUrl, userMessage } from "./resources/universal.js";
 import { hamburger, cartQtyDisplay } from "./components/nav.js";
 import { drawProductCards } from "./components/draw.js";
-import { getCart } from "./components/storage.js";
+import { getCart, doHomeReload } from "./components/storage.js";
 
 hamburger();
 let cart = getCart();
 cartQtyDisplay(cart);
+
+
+doHomeReload();
 
 const heroContainer = document.querySelector(".hero-container");
 const messageContainer = document.querySelector(".message-container");
@@ -33,7 +36,7 @@ const featuredUrl = productsUrl +"?featured=true";
     try {
         const response = await fetch(featuredUrl);
         const output = await response.json();
-        console.log(output);
+        featuredContainer.classList.remove("loading");
         if(output.length === 0){
             featuredContainer.innerHTML = "No featured items";
         } else {

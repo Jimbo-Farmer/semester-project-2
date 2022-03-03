@@ -14,35 +14,26 @@ if(!cart.length){
     drawCart(cart, cartContainer, baseUrl);
 }
 
-function drawCart(cart, container, url){
+function drawCart(cart, container){
     container.innerHTML = ``;
     let totalPrice = 0;
     cart.forEach(item => {
-        let image;
-        let altText;
-        if(!(item.image)){
-            image = item.image_url;
-            altText = item.alternativeText;
-        } else {
-            image = url + item.image.url;
-            altText = item.image.alternativeText;
-        }
         container.innerHTML += `
         <div class="cart-item">
             <div class="cart-item__thumbnail">
-                <img src="${image}" alt="${altText}"></img>
+                <img class="product__image"  src="${item.images[0].src}" alt="${item.images[0].alt}">
             </div>
             <div class="cart-item__details">
-                <h2>${item.title}</h2>
-                <p class="cart__price">Price $${item.price.toFixed(2)}</p>
+                <h2>${item.name}</h2>
+                <p class="cart__price">Price kr ${item.prices.price}</p>
                 <p class="cart__quantity">Quantity <span class="quantity__minus" data-id=${item.id}>-</span>${item.qty}<span class="quantity__plus" data-id=${item.id}>+</span>
                 <div class="cart__details-link"><a href="detail.html?id=${item.id}">Details</a></div>
             </div>
         </div>`
-        totalPrice += (item.qty*item.price);
+        totalPrice += (item.qty*item.prices.price);
     })
     container.innerHTML += `
-    <div class="cart__total">Total $${totalPrice.toFixed(2)}</div>
+    <div class="cart__total">Total kr ${totalPrice}</div>
     <a class="cart__checkout-link" href="">Proceed to checkout</a>
     `
 
