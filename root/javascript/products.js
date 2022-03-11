@@ -21,6 +21,13 @@ const productsContainer = document.querySelector(".products-container");
         drawProductCards(products, productsContainer);
         drawFilteredProducts(products, productsContainer);
         editableCards();
+        const images = document.querySelectorAll(".product__image")
+        images.forEach((image) => {
+            image.addEventListener("click", function(event){
+                const id = event.target.parentElement.parentElement.dataset.id;
+                document.location = "detail.html?id="+id;
+            })
+        })
     } catch (errorMsg) {
         userMessage("error", `An error occurred: ${errorMsg}`, messageContainer);
     }

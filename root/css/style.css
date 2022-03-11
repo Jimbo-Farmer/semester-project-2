@@ -14,6 +14,7 @@ main, footer {
 
 main {
   min-height: 90vh;
+  position: relative;
 }
 
 .message {
@@ -99,6 +100,8 @@ a {
           transform: rotate(90deg);
   -webkit-animation: slide 0.8s ease-in-out infinite;
           animation: slide 0.8s ease-in-out infinite;
+  -o-object-fit: unset;
+     object-fit: unset;
 }
 
 @-webkit-keyframes slide {
@@ -205,7 +208,7 @@ nav {
   height: 80px;
   width: 80px;
   background-color: black;
-  border-radius: 24px;
+  border-radius: 6px;
 }
 
 @media (min-width: 1024px) {
@@ -436,6 +439,10 @@ footer {
   position: relative;
 }
 
+.products-container .product__card .product__image-container, .featured-container .product__card .product__image-container {
+  overflow: hidden;
+}
+
 .products-container .product__card img, .featured-container .product__card img {
   width: 100%;
   max-height: 300px;
@@ -443,6 +450,14 @@ footer {
      object-position: center;
   -o-object-fit: cover;
      object-fit: cover;
+}
+
+.products-container .product__card img:hover, .featured-container .product__card img:hover {
+  -webkit-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out;
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+  cursor: pointer;
 }
 
 .products-container .product__card h2, .featured-container .product__card h2 {
@@ -465,21 +480,20 @@ footer {
   }
 }
 
-.product__cta, .cart-item .cart-item__details a, .cart__checkout-link, form button {
+.product__cta, .cart__checkout-link, form button {
   display: inline-block;
   text-transform: uppercase;
   font-weight: 700;
   color: black;
-  background-color: #EEE;
+  background-color: #FFF;
   padding: 5px 25px;
   border: none;
-  border-radius: 5px;
   margin: 15px auto;
   -webkit-filter: drop-shadow(1px 1px 2px #0066FF);
           filter: drop-shadow(1px 1px 2px #0066FF);
 }
 
-.product__cta:hover, .cart-item .cart-item__details a:hover, .cart__checkout-link:hover, form button:hover, .product__cta:focus, .cart-item .cart-item__details a:focus, .cart__checkout-link:focus, form button:focus {
+.product__cta:hover, .cart__checkout-link:hover, form button:hover, .product__cta:focus, .cart__checkout-link:focus, form button:focus {
   background-color: #FF4646;
   cursor: pointer;
 }
@@ -530,6 +544,7 @@ footer {
 }
 
 .product-container .product__details {
+  position: relative;
   width: 90%;
   margin: 0 auto;
   background-color: #363636;
@@ -576,10 +591,12 @@ footer {
   font-size: 21px;
 }
 
-.product-container .product__details .product__cta, .product-container .product__details .cart-item .cart-item__details a, .cart-item .cart-item__details .product-container .product__details a, .product-container .product__details .cart__checkout-link, .product-container .product__details form button, form .product-container .product__details button {
+.product-container .product__details .product__cta, .product-container .product__details .cart__checkout-link, .product-container .product__details form button, form .product-container .product__details button {
+  position: relative;
   font-size: 16px;
   display: block;
   margin: 16px auto;
+  z-index: 10;
 }
 
 .product-container img {
@@ -609,9 +626,20 @@ footer {
   border-radius: 0 10px 0 10px;
 }
 
-.product__card-edit:hover {
+.product__card-edit:hover, .product__card-edit:focus {
   background-color: #363636;
   color: white;
+}
+
+#add-feedback {
+  position: absolute;
+  height: 30px;
+  -webkit-transform: rotate(90deg);
+          transform: rotate(90deg);
+  width: unset;
+  z-index: 5;
+  -webkit-transition: 0.3s all ease-out;
+  transition: 0.3s all ease-out;
 }
 
 .cart-container {
@@ -659,11 +687,14 @@ footer {
 }
 
 .cart-item .cart-item__details h2 {
+  text-align: left;
   font-size: 16px;
   margin: 10px auto;
 }
 
 .cart-item .cart-item__details a {
+  color: white;
+  text-decoration: underline;
   padding: 2px;
   margin-top: 0;
 }

@@ -33,7 +33,7 @@ function drawCart(cart, container){
         totalPrice += (item.qty*item.prices.price);
     })
     container.innerHTML += `
-    <div class="cart__total">Total kr ${totalPrice}</div>
+    <div class="cart__total">Total kr ${totalPrice.toLocaleString()}</div>
     <a class="cart__checkout-link" href="">Proceed to checkout</a>
     `
 
@@ -42,7 +42,7 @@ function drawCart(cart, container){
         button.addEventListener("click", function(event){
             adjustCart(cart, event.target.dataset, "add");
             cartQtyDisplay(cart);
-            drawCart(cart, cartContainer, baseUrl);
+            drawCart(cart, cartContainer);
             
         })
     })
@@ -57,8 +57,5 @@ function drawCart(cart, container){
                 userMessage("info", "Your cart is empty", cartContainer);
             }
         })
-    })
-
-    
-    
+    })    
 }

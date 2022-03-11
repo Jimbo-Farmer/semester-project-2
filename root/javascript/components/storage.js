@@ -62,7 +62,7 @@ export function logOut(){
     location.reload();
 }
 
-// Hacky way of reloading pages to update with new product or edited product
+// Hacky way of reloading pages from server to update with new or edited product
 
 export function scheduleReload(){
     savetoStorage("reloadHome", true);

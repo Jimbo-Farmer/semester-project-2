@@ -1,7 +1,8 @@
 import { baseUrl, mediaUrl, userMessage } from "./resources/universal.js";
 import { hamburger, cartQtyDisplay } from "./components/nav.js";
 import { getCart, getToken, scheduleReload } from "./components/storage.js";
-import { drawNewImageForm } from "./components/draw.js";
+import { drawImageForm } from "./components/draw.js";
+import { deleteProductImage } from "./components/crud.js";
 const messageContainer = document.querySelector(".message-container");
 const newProductForm = document.querySelector("#create-form");
 const header = document.querySelector("h1");
@@ -19,11 +20,12 @@ const url = baseUrl + "wp-json/wc/v3/products"
 const replaceImageButton = document.querySelector(".image-replace");
 const imageFormContainer = document.querySelector(".product__image-form");
 let newImageUrl;
+let imageIdToDelete;
 
 const placeHolder = document.querySelector(".placeholder");
 
 replaceImageButton.onclick = function(){
-    drawNewImageForm(imageFormContainer);
+    drawImageForm("", imageFormContainer);
     imageFormContainer.classList.add("open");
     const imageContainer = document.querySelector(".image-container");
     const imageForm = document.querySelector("#image-form");         
@@ -66,7 +68,7 @@ newProductForm.onsubmit = function(event) {
     const altText = document.querySelector("#alt-text").value.trim();
     const imageSrc = document.querySelector(".placeholder").src;
     const data = {"name": title, "description": description, "regular_price": price, "featured": featured, "images": [{"src": `${imageSrc}`,"alt":`${altText}`}]};
-    
+    //Validate
     if(isNaN(parseInt(price))){
         userMessage("error", "Please enter a number in the price field", messageContainer);
     } else if(title.length > 0 && description.length > 0 && price && newImageUrl && altText.length > 0){
@@ -75,14 +77,13 @@ newProductForm.onsubmit = function(event) {
         userMessage("error", "Please complete all fields", messageContainer);
     }   
 }
-//add image separately via upload to media endpoint, retrieve url from response and add this url to image info on rest of request
     
 async function createProduct(data){
     const options = {
         method: "POST",
         body: JSON.stringify(data),
         headers: {
-            "Content-Type":"application/json",      //   this is removed in order to avoid an error. 
+            "Content-Type":"application/json",
             Authorization: `Bearer ${token}`,
         }
     }
@@ -95,6 +96,7 @@ async function createProduct(data){
             newProductForm.innerHTML = ``;
             newProductForm.style.padding = "0";
             header.style.display = "none";
+            deleteProductImage(imageIdToDelete);
             scheduleReload();
         }
     } catch (error) {
@@ -118,7 +120,7 @@ async function newImage(data){
         imageFormContainer.classList.remove("open");
         imageFormContainer.innerHTML= "";
         placeHolder.src = newImageUrl;
-        
+        imageIdToDelete = uploadedImage.id;  // To stop duplication of images on wordpress. 
     } catch (error) {
         userMessage("error", `An error occurred. Details: ${error}`, messageContainer)
     }

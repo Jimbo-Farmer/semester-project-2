@@ -9,7 +9,6 @@ cartQtyDisplay(cart);
 const messageContainer = document.querySelector(".message-container");
 const adminLinks = document.querySelector(".admin-links");
 const logoutButton = document.querySelector("#logout");
-
 const form = document.querySelector("form");
 const usernameInput = document.querySelector("#username");
 const passwordInput = document.querySelector("#password");
@@ -67,7 +66,6 @@ form.onsubmit = function(event){
         }
     }
 }
-
 
 logoutButton.onclick = function(){
     logOut();

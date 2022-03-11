@@ -13,6 +13,7 @@ main, footer {
 
 main {
     min-height: 90vh;
+    position: relative;
 }
 
 .message {
@@ -85,11 +86,9 @@ a {
         height: 40px; 
         transform: rotate(90deg);  
         animation: slide 0.8s ease-in-out infinite;
+        object-fit: unset;
     }
 }
-
-
-
 
 @keyframes slide {
     0% { margin-left: -80px;

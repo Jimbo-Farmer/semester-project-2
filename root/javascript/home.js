@@ -6,8 +6,6 @@ import { getCart, doHomeReload } from "./components/storage.js";
 hamburger();
 let cart = getCart();
 cartQtyDisplay(cart);
-
-
 doHomeReload();
 
 const heroContainer = document.querySelector(".hero-container");
@@ -23,15 +21,12 @@ const featuredContainer = document.querySelector(".featured-container");
                 heroContainer.innerHTML = `<img src="${item.source_url}" alt="${item.alt_text}">`
             }
         });
-
     } catch (errorMsg) {
         userMessage("error", `An error occurred: ${errorMsg}`, messageContainer);
     }
 })();
 
-
 const featuredUrl = productsUrl +"?featured=true";
-
 (async function getFeatured(){
     try {
         const response = await fetch(featuredUrl);
@@ -41,8 +36,14 @@ const featuredUrl = productsUrl +"?featured=true";
             featuredContainer.innerHTML = "No featured items";
         } else {
             drawProductCards(output, featuredContainer);
-        }
-        
+            const images = document.querySelectorAll(".product__image")
+            images.forEach((image) => {
+                image.addEventListener("click", function(event){
+                const id = event.target.parentElement.parentElement.dataset.id;
+                document.location = "detail.html?id="+id;
+                })
+            })
+        }   
     } catch (errorMsg) {
         userMessage("error", `An error occurred: ${errorMsg}`, messageContainer);
     }

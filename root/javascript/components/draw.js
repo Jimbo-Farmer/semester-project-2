@@ -9,7 +9,9 @@ export function drawProductCards(list, container){
         list.forEach(product => {
             container.innerHTML += 
             `<div class="product__card" data-id=${product.id}>
-                <img class="product__image"  src="${product.images[0].src}" alt="${product.images[0].alt}">
+                <div class="product__image-container">
+                    <img class="product__image"  src="${product.images[0].src}" alt="${product.images[0].alt}">
+                </div>
                 <h2>${product.name}</h2>
                 <p class="product__price">kr ${parseInt(product.prices.price)}</p>
                 <a class="product__cta" href="detail.html?id=${product.id}">More</a>
@@ -28,6 +30,7 @@ export function drawProductDetails(product, container){
             <p class="product__description">${product.description.slice(0, -4).substring(3)}</p>
             <p class="product__price">kr ${parseInt(product.prices.price).toFixed(2)}</p>
             <button class="product__cta product__add">Add to cart</button>
+            <img id="add-feedback" src="./images/logo-bare.svg" alt="logo to give feedback that item has been added">
         </div>
     </div>`;
 }
@@ -70,11 +73,13 @@ export function drawEditableProduct(product, container){
 }
 
 export function drawImageForm(product, container){
+    const image = product ? product.images[0].src : "";
+    const altText = product ? product.images[0].alt : "";
     container.innerHTML = 
     `<form id="image-form" action="">
         <div class="image-form__message"></div>
         <div class="image-container">
-            <img class="product__image" id="image-preview" src="${product.images[0].src}" alt="${product.images[0].alt}">
+            <img class="product__image" id="image-preview" src="${image}" alt="${altText}">
         </div>
         <label for="image">Select Image File</label>
         <input type="file" id="image" name="image"/>
@@ -82,20 +87,4 @@ export function drawImageForm(product, container){
         <button type="button" class="close-button">Close X</button>
     </form>`;    
 }
-
-export function drawNewImageForm(container){
-    container.innerHTML = 
-    `<form id="image-form" action="">
-        <div class="image-form__message"></div>
-        <div class="image-container">
-            <img class="product__image" id="image-preview" src="" alt="">
-        </div>
-        <label for="image">Select Image File</label>
-        <input type="file" id="image" name="image"/>
-        <button type="submit" class="product__cta image-upload">Upload</button>
-        <button type="button" class="close-button">Close X</button>
-    </form>`;    
-}
-
-
-  
+ 

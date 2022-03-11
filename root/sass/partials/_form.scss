@@ -57,7 +57,6 @@ form {
         display: block;
         width: 300px;
     }
-
     .product__edit, .product__create {
         color: white;
         background-color: $colour-coolblue;
@@ -89,7 +88,6 @@ form {
     justify-content: center;
     form {
         position: relative;
-        // width: 300px;
         background-color: $colour-graphite;
         padding: 20px;
         @media (min-width: 768px) {
@@ -117,8 +115,7 @@ form {
             color: white;
         }
         input {
-            width: 500px;
-            
+            width: 500px; 
         }
         label {
             margin-top: 20px;
