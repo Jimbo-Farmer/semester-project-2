@@ -20,7 +20,7 @@ Link to website [here](https://xenodochial-kalam-d8db6c.netlify.app/index.html)
 1. Clone the repo.
 2. Open in a code editor.
 3. If using VSCode: Choose an html page, right click and run with live server.
-4. A sass compiler will be needed for editing the styling.  
+4. A sass compiler will be needed for editing the styling, I used the livesass compiler plugin for VSCode.  
 
 ## Licensing/Copyright etc
 
